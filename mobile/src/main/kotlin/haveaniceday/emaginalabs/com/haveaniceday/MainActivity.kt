@@ -2,6 +2,10 @@ package haveaniceday.emaginalabs.com.haveaniceday
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
+import haveaniceday.emaginalabs.com.haveaniceday.notification.HappyNotificationMessaging
+import haveaniceday.emaginalabs.com.haveaniceday.notification.HappyNotificationMessagingService
 
 class MainActivity : AppCompatActivity() {
 
