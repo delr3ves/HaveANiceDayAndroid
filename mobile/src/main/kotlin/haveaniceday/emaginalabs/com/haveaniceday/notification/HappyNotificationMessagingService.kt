@@ -21,20 +21,23 @@ class HappyNotificationMessagingService : FirebaseMessagingService() {
 
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        val message = remoteMessage.notification.body
-        Log.i(TAG, message)
-        sendNotification(message)
+        val title = remoteMessage.data.get("title")
+        val message = remoteMessage.data.get("message")
+        val photo = remoteMessage.data.get("photoUrl")
+        val notification = Notification(title, message, photo)
+        sendNotification(notification)
     }
 
-    private fun sendNotification(messageBody: String?) {
+    private fun sendNotification(notification: Notification) {
         val intent = Intent(this, ReceivedMessageActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(HappyNotificationMessaging.RECEIVED_MESSAGE, messageBody)
+        intent.putExtra(HappyNotificationMessaging.RECEIVED_MESSAGE, notification.message)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
         val notificationBuilder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_notify)
-                .setContentTitle(messageBody)
+                .setContentTitle(notification.title)
+                .setContentText(notification.message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
 
