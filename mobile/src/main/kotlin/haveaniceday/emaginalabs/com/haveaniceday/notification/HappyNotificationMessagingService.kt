@@ -10,9 +10,12 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import haveaniceday.emaginalabs.com.haveaniceday.R
 import haveaniceday.emaginalabs.com.haveaniceday.ReceivedMessageActivity
+import java.net.URL
+import java.util.*
+
 
 object HappyNotificationMessaging {
-    val RECEIVED_MESSAGE = "receivedMessage"
+    val RECEIVED_NOTIFICATION = "receivedNotification"
 }
 
 class HappyNotificationMessagingService : FirebaseMessagingService() {
@@ -28,13 +31,9 @@ class HappyNotificationMessagingService : FirebaseMessagingService() {
     private fun sendNotification(notification: Notification) {
         val intent = Intent(this, ReceivedMessageActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(HappyNotificationMessaging.RECEIVED_MESSAGE, notification.message)
+        intent.putExtra(HappyNotificationMessaging.RECEIVED_NOTIFICATION, notification)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-
-        val bigPictureStyle = NotificationCompat.BigPictureStyle()
-                .bigPicture(BitmapFactory.decodeResource(this.getResources(), R.mipmap.notification_background))
-                .setSummaryText(notification.message)
 
         val notificationBuilder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_notify)
@@ -42,10 +41,19 @@ class HappyNotificationMessagingService : FirebaseMessagingService() {
                 .setContentText(notification.message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
-                .setStyle(bigPictureStyle)
+
+        notification.photoUrl?.let {
+            val imageUri = URL(notification.photoUrl)
+            val bitmap = BitmapFactory.decodeStream(imageUri.openConnection().getInputStream());
+
+            val bigPictureStyle = NotificationCompat.BigPictureStyle()
+                    .bigPicture(bitmap)
+                    .setSummaryText(notification.message)
+            notificationBuilder.setStyle(bigPictureStyle)
+        }
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+        notificationManager.notify(Random().nextInt(), notificationBuilder.build())
     }
 }
 
