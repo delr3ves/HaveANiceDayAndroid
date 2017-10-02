@@ -16,14 +16,17 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".notification.HappyNotificationMessagingService">
+        <service android:name=".notification.HappyNotificationMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="952043b665e7f0310d655b06f3fa7bded6504124" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
