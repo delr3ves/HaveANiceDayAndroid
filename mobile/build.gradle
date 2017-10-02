@@ -25,17 +25,30 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        production {
+            keyAlias "haveaniceday"
+            keyPassword "123456"
+            storePassword "123456"
+            storeFile file("../keystore.jks")
+        }
+    }
+
     buildTypes {
         debug {
             ext.enableCrashlytics = false
             testCoverageEnabled true
             debuggable true
+            signingConfig signingConfigs.production
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.production
         }
     }
+
     productFlavors {
         def STRING = "String"
         def ENVIRONMENT = "ENVIRONMENT"
