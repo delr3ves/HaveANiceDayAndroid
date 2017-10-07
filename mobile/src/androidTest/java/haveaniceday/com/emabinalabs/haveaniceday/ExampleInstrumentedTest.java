@@ -1,4 +1,4 @@
-package haveaniceday.emaginalabs.com.haveaniceday;
+package haveaniceday.com.emabinalabs.haveaniceday;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("haveaniceday.emaginalabs.com.haveaniceday", appContext.getPackageName());
+        assertEquals("com.emaginalabs.haveaniceday", appContext.getPackageName());
     }
 }

@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 buildscript {
     repositories {
@@ -18,7 +20,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "haveaniceday.emaginalabs.com.haveaniceday"
+        applicationId "com.emaginalabs.haveaniceday"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -89,18 +91,25 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "com.github.salomonbrys.kodein:kodein:$kodein_version"
+    compile "com.github.salomonbrys.kodein:kodein-android:$kodein_version"
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-crash:10.0.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
+    compile "com.jakewharton:butterknife:$butterknife_version"
+    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+    testCompile 'junit:junit:4.12'
+}
+
+kapt {
+    generateStubs = true
 }
 
 apply plugin: 'com.google.gms.google-services'

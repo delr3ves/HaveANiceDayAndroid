@@ -1,4 +1,4 @@
-package haveaniceday.emaginalabs.com.haveaniceday;
+package haveaniceday.com.emabinalabs.haveaniceday;
 
 import org.junit.Test;
 

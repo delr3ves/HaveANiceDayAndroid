@@ -1,4 +1,4 @@
-package haveaniceday.emaginalabs.com.haveaniceday.app.notification
+package com.emaginalabs.haveaniceday.app.notification
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -6,11 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v4.app.NotificationCompat
+import com.emaginalabs.haveaniceday.app.ReceivedMessageActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import haveaniceday.emaginalabs.com.haveaniceday.R
-import haveaniceday.emaginalabs.com.haveaniceday.app.ReceivedMessageActivity
-import haveaniceday.emaginalabs.com.haveaniceday.core.model.Notification
+import com.emabinalabs.haveaniceday.R
+import com.emaginalabs.haveaniceday.core.model.Notification
 import java.net.URL
 import java.util.*
 

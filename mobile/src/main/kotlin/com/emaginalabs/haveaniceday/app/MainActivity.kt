@@ -1,8 +1,8 @@
-package haveaniceday.emaginalabs.com.haveaniceday.app
+package com.emaginalabs.haveaniceday.app
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import haveaniceday.emaginalabs.com.haveaniceday.R
+import com.emabinalabs.haveaniceday.R
 
 class MainActivity : AppCompatActivity() {
 

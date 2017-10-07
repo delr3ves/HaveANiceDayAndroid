@@ -1,4 +1,4 @@
-package haveaniceday.emaginalabs.com.haveaniceday.core.model
+package com.emaginalabs.haveaniceday.core.model
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -8,8 +8,7 @@ data class Notification(val title: String?, val message: String?, val photoUrl: 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)

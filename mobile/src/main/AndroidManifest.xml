@@ -1,49 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="haveaniceday.emaginalabs.com.haveaniceday">
+    package="com.emabinalabs.haveaniceday">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".app.HaveANiceDayApplication"
-        android:theme="@style/AppTheme">
+        android:name="com.emaginalabs.haveaniceday.app.HaveANiceDayApplication"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
+        >
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_notify" />
 
 
-        <activity android:name=".app.MainActivity">
+        <activity android:name="com.emaginalabs.haveaniceday.app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.ReceivedMessageActivity"></activity>
+        <activity android:name="com.emaginalabs.haveaniceday.app.ReceivedMessageActivity"></activity>
 
-        <service android:name=".app.notification.HappyNotificationMessagingService"
+        <service android:name="com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessagingService"
             android:enabled="true"
             android:exported="true">
         <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-        <service
-            android:name=".app.notification.HappyNotificationInstanceIdService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="952043b665e7f0310d655b06f3fa7bded6504124" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
