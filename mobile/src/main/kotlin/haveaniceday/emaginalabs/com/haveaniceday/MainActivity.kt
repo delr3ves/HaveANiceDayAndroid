@@ -1,10 +1,10 @@
 package haveaniceday.emaginalabs.com.haveaniceday
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
-
+import android.support.v7.app.AppCompatActivity
+import com.crashlytics.android.Crashlytics
+import com.google.firebase.messaging.FirebaseMessaging
+import io.fabric.sdk.android.Fabric
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,5 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
+        FirebaseMessaging.getInstance().subscribeToTopic("haveANiceDay");
     }
 }
