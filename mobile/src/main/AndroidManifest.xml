@@ -7,6 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".app.HaveANiceDayApplication"
         android:theme="@style/AppTheme">
 
         <meta-data
@@ -14,16 +15,16 @@
             android:resource="@mipmap/ic_notify" />
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReceivedMessageActivity"></activity>
+        <activity android:name=".app.ReceivedMessageActivity"></activity>
 
-        <service android:name=".notification.HappyNotificationMessagingService"
+        <service android:name=".app.notification.HappyNotificationMessagingService"
             android:enabled="true"
             android:exported="true">
         <intent-filter>
@@ -32,7 +33,7 @@
         </service>
 
         <service
-            android:name=".notification.HappyNotificationInstanceIdService"
+            android:name=".app.notification.HappyNotificationInstanceIdService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

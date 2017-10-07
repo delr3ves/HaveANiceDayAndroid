@@ -1,15 +1,16 @@
-package haveaniceday.emaginalabs.com.haveaniceday
+package haveaniceday.emaginalabs.com.haveaniceday.app
 
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
-import haveaniceday.emaginalabs.com.haveaniceday.notification.HappyNotificationMessaging
-import haveaniceday.emaginalabs.com.haveaniceday.notification.Notification
+import haveaniceday.emaginalabs.com.haveaniceday.app.notification.HappyNotificationMessaging
+import haveaniceday.emaginalabs.com.haveaniceday.core.model.Notification
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.view.View
+import haveaniceday.emaginalabs.com.haveaniceday.R
 import pl.droidsonroids.gif.GifTextView
 import java.net.URL
 
@@ -35,7 +36,7 @@ class ReceivedMessageActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: Void?): Bitmap? {
             try {
                 notification?.photoUrl?.let {
-                    val imageStream = URL(notification?.photoUrl).openStream()
+                    val imageStream = URL(notification.photoUrl).openStream()
                     val bitmap = BitmapFactory.decodeStream(imageStream)
                     return bitmap
                 }

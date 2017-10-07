@@ -1,4 +1,4 @@
-package haveaniceday.emaginalabs.com.haveaniceday.notification
+package haveaniceday.emaginalabs.com.haveaniceday.core.model
 
 import android.os.Parcel
 import android.os.Parcelable
