@@ -17,14 +17,16 @@
             android:resource="@mipmap/ic_notify" />
 
 
-        <activity android:name="com.emaginalabs.haveaniceday.app.MainActivity">
+        <activity android:name="com.emaginalabs.haveaniceday.app.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.emaginalabs.haveaniceday.app.ReceivedMessageActivity"></activity>
+        <activity android:name="com.emaginalabs.haveaniceday.app.ReceivedMessageActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessagingService"
             android:enabled="true"
