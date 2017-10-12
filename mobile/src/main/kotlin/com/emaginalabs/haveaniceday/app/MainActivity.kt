@@ -2,6 +2,8 @@ package com.emaginalabs.haveaniceday.app
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -9,11 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.bumptech.glide.request.RequestOptions
 import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessaging
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
@@ -22,6 +23,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
+import jp.wasabeef.blurry.Blurry
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         }
     }
 
-    private class NotificationListAdapter(context: Context,
+    private class NotificationListAdapter(val context: Context,
                                           val notifications: List<Notification>) : BaseAdapter() {
 
         private val inflator: LayoutInflater
@@ -81,6 +83,14 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             val notification = getItem(position) as Notification
             vh.title?.text = notification.title
             vh.message?.text = notification.message
+            GlideApp.with(context)
+                    .load(notification.photoUrl)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .apply(RequestOptions.circleCropTransform())
+                    .override(150, 150)
+                    .fitCenter()
+                    .into(vh.image)
+
             view?.setOnClickListener { view ->
                 val context = view.context
                 val intent = Intent(context, ReceivedMessageActivity::class.java)
@@ -109,10 +119,12 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     private class ListRowHolder(row: View?) {
         val message: TextView?
         val title: TextView?
+        val image: ImageView?
 
         init {
             this.message = row?.findViewById(R.id.notifciation_row_message)
             this.title = row?.findViewById(R.id.notifciation_row_title)
+            this.image = row?.findViewById(R.id.notifciation_row_photo)
         }
     }
 }

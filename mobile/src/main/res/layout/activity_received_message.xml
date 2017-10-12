@@ -5,32 +5,36 @@
     android:background="@color/backgrounColor">
 
     <TextView
-        android:id="@+id/received_message"
+        android:id="@+id/received_message_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textStyle="bold"
         android:layout_marginTop="50dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/rounded_corner"
-        android:gravity="center"
         android:paddingBottom="30dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="30dp"
+        android:text="The title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <pl.droidsonroids.gif.GifTextView
-        android:id="@+id/image_loader"
+    <TextView
+        android:id="@+id/received_message"
+        android:layout_below="@+id/received_message_title"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/received_message"
-        android:layout_marginTop="20dp"
-        android:adjustViewBounds="true"
-        android:background="@mipmap/happy_loader"
-        android:orientation="vertical"
-        android:scaleType="centerInside" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/rounded_corner"
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="30dp"
+        android:text="The body"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageView
         android:id="@+id/received_image"
@@ -42,6 +46,5 @@
         android:adjustViewBounds="true"
         android:orientation="vertical"
         android:scaleType="centerInside"
-        android:visibility="invisible"
         />
 </RelativeLayout>

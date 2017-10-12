@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgrounColor">
 
-    <LinearLayout
+    <ImageView
         android:orientation="vertical"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -12,7 +12,8 @@
         android:background="@mipmap/notification_background"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/linearLayout"></LinearLayout>
+        android:alpha=".75"
+        android:id="@+id/message_list_background"></ImageView>
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

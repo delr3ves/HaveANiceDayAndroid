@@ -9,24 +9,28 @@
         android:id="@+id/notifciation_row_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_launcher"
+        android:layout_gravity="center"
         android:text="message" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingRight="5dp"
         android:layout_marginLeft="10dp">
         <TextView android:id="@+id/notifciation_row_title"
             android:layout_width="wrap_content"
             android:text="title"
+            android:maxLength="55"
+            android:textStyle="bold"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/notifciation_row_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="message" />
+            android:maxLength="55"
+            android:text="this is a really big message which should be limited when it has more than a few characters just to ensure it fits in a single line" />
     </LinearLayout>
 
 </LinearLayout>
