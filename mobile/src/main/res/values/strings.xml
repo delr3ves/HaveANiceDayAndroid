@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Have A Nice Day</string>
-    <string name="topic_name">haveANiceDay</string>
+    <string name="topic_name">/topics/haveANiceDay</string>
 </resources>
