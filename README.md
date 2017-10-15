@@ -1,4 +1,4 @@
-# HaveANiceDayAndroid
+# HaveANiceDayAndroid ![Build Status](https://www.bitrise.io/app/b10220c409c51793.svg?token=Klq9TcBlbOQqX1i2MIquMQ)
 Android app to generate smiles thanks to https://github.com/pedrovgs/HaveANiceDay
 I knnow, it's not the prettiest APP you'll see, but we're working on it :(
 
@@ -62,8 +62,6 @@ or
 
 It will generate an automatic notification to every user in `${ENV}_distribution_emails.txt
  
- 
-**Once we configure the CI server, those versions we'll be automatic uploaded once we merge to master.**
 
 # Contributing
 
@@ -74,6 +72,6 @@ Please, remember that there are some requirements you have to pass before accept
 * The code written will have to match the product owner requirements.
 * Follow the repository code style.
 * Write good commit messages.
-* Do not send pull requests without checking if the project build is OK.
+* Do not send pull requests without checking if the project build is OK and CI status is success.
 * Review if your changes affects the repository documentation and update it.
 * Describe the PR content and don't hesitate to add comments to explain us why you've added or changed something.
