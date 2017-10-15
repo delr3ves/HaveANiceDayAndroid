@@ -2,8 +2,6 @@ package com.emaginalabs.haveaniceday.app
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,7 +9,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.ListView
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.request.RequestOptions
@@ -23,7 +24,6 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
-import jp.wasabeef.blurry.Blurry
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
 
             view?.setOnClickListener { view ->
                 val context = view.context
-                val intent = Intent(context, ReceivedMessageActivity::class.java)
+                val intent = Intent(context, MessageDetailActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra(HappyNotificationMessaging.RECEIVED_NOTIFICATION, notification)
                 ContextCompat.startActivity(context, intent, null)

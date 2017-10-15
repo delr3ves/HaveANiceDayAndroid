@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Have A Nice Day</string>
     <string name="topic_name">/topics/haveANiceDay</string>
+    <string name="share_text">share</string>
+    <string name="like_text">like</string>
+    <string name="share_choose_title">Share message :)</string>
 </resources>

@@ -1,0 +1,9 @@
+Dear fellow tester, here you have some news for this version:
+
+1. Links in texts are now clickable
+2. Detail view has been improved (it's still pretty ugly but it has been improved :P)
+3. Notification list has been improved (same here)
+4. Now you can share the messages as text. The image sharing is not working in whatsapp right now so I disabled it.
+5. You'll find a budget above the icon of the app when you have a pending notification. It only will show 1 no matter how much pending notifications you have. Increasing/decreasing this number is still in progress.
+
+Another great new is that this version has been automatically upload to fabric once the branch is merged to master \o/.

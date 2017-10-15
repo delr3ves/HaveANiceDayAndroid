@@ -12,7 +12,7 @@
         android:background="@mipmap/notification_background"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:alpha=".75"
+        android:alpha=".55"
         android:id="@+id/message_list_background"></ImageView>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -22,7 +22,11 @@
         android:layout_height="match_parent">
         <ListView android:id="@+id/notification_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:paddingTop="5dp"
+            android:dividerHeight="4dip"
+            />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

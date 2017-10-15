@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FFD15C</color>
+    <color name="colorPrimaryDark">#F3A528</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="backgrounColor">#FFFFFF</color>
-    <color name="receivedMessageBackground">#FFEC8E</color>
+    <color name="backgrounColor">#FFFFEA</color>
+    <color name="backgrounNotificationListItemColor">#FFFFFF</color>
+    <color name="messageTextBubbleBackground">#FFEC8E</color>
+    <color name="backgrounColorOnReceivedMessage">#FFFFEA</color>
 </resources>
