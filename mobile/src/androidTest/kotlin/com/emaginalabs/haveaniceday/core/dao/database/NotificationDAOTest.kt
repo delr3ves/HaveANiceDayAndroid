@@ -23,13 +23,13 @@ class NotificationDAOTest {
     @Before
     fun createDb() {
         val context = InstrumentationRegistry.getTargetContext()
-        database = Room.inMemoryDatabaseBuilder(context, HaveANiceDayDatabase::class.java!!).build()
+        database = Room.inMemoryDatabaseBuilder(context, HaveANiceDayDatabase::class.java).build()
         notificationDAO = database.notificationDAO()
     }
 
     @After
     fun closeDb() {
-        database!!.close()
+        database.close()
     }
 
     @Test

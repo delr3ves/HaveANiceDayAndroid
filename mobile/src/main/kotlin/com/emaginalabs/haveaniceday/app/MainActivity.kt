@@ -9,10 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.request.RequestOptions
@@ -83,12 +80,13 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             val notification = getItem(position) as Notification
             vh.title?.text = notification.title
             vh.message?.text = notification.message
+            if (!notification.read) {
+                vh.container?.background = ContextCompat.getDrawable(context, R.drawable.unread_message_row_box)
+            }
             GlideApp.with(context)
                     .load(notification.photoUrl)
                     .placeholder(R.mipmap.ic_launcher)
                     .apply(RequestOptions.circleCropTransform())
-                    .override(150, 150)
-                    .fitCenter()
                     .into(vh.image)
 
             view?.setOnClickListener { clickedView ->
@@ -120,11 +118,13 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         val message: TextView?
         val title: TextView?
         val image: ImageView?
+        val container: LinearLayout?
 
         init {
             this.message = row?.findViewById(R.id.notifciation_row_message)
             this.title = row?.findViewById(R.id.notifciation_row_title)
             this.image = row?.findViewById(R.id.notifciation_row_photo)
+            this.container = row?.findViewById(R.id.received_message_item_container)
         }
     }
 }

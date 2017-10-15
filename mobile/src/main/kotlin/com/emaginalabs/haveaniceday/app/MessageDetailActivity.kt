@@ -12,6 +12,7 @@ import butterknife.OnClick
 import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessaging
 import com.emaginalabs.haveaniceday.core.model.Notification
+import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
 import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
@@ -32,6 +33,7 @@ class MessageDetailActivity : AppCompatActivity(), LazyKodeinAware {
     lateinit var imageContainer: ImageView
 
     private val updateNotificationBudget: UpdateNotificationBudget by instance()
+    private val markNotificationAsRead: MarkNotificationAsRead by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,9 @@ class MessageDetailActivity : AppCompatActivity(), LazyKodeinAware {
                 .placeholder(R.mipmap.happy_loader)
                 .into(imageContainer)
         doAsync {
+            if (happyNotification != null) {
+                markNotificationAsRead.execute(happyNotification)
+            }
             updateNotificationBudget.execute()
         }
     }

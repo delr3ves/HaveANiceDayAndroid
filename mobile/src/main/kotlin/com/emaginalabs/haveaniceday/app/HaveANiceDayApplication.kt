@@ -16,6 +16,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
 import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
 import com.emaginalabs.haveaniceday.core.utils.TimeProvider
 
@@ -40,6 +41,9 @@ class HaveANiceDayApplication : Application(), KodeinAware {
             UpdateNotificationBudget(instance<NotificationDAO>(), app)
         }
 
+        bind<MarkNotificationAsRead>() with singleton {
+            MarkNotificationAsRead(instance<NotificationDAO>())
+        }
     }
 
     override fun onCreate() {
