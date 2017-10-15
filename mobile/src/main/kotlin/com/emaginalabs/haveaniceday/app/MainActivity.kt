@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
                     .fitCenter()
                     .into(vh.image)
 
-            view?.setOnClickListener { view ->
-                val context = view.context
+            view?.setOnClickListener { clickedView ->
+                val context = clickedView.context
                 val intent = Intent(context, MessageDetailActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra(HappyNotificationMessaging.RECEIVED_NOTIFICATION, notification)
