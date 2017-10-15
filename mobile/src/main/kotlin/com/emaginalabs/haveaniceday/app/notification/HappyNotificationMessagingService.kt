@@ -11,6 +11,8 @@ import com.emaginalabs.haveaniceday.app.HaveANiceDayApplication
 import com.emaginalabs.haveaniceday.app.MessageDetailActivity
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
 import com.emaginalabs.haveaniceday.core.model.Notification
+import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
+import com.emaginalabs.haveaniceday.core.utils.TimeProvider
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.android.appKodein
@@ -21,7 +23,6 @@ import me.leolin.shortcutbadger.ShortcutBadger
 import java.net.URL
 import java.util.*
 
-
 object HappyNotificationMessaging {
     val RECEIVED_NOTIFICATION = "receivedNotification"
 }
@@ -30,17 +31,24 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
 
     override val kodein = LazyKodein(appKodein)
 
-    val notificationDAO: NotificationDAO by instance()
+    private val notificationDAO: NotificationDAO by instance()
+    private val timeProvider: TimeProvider by instance()
+    private val updateNotificationBudget: UpdateNotificationBudget by instance()
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val title = remoteMessage.data.get("title")
         val message = remoteMessage.data.get("message")
         val photo = remoteMessage.data.get("photoUrl")
-        val notification = Notification(title = title, message = message, photoUrl = photo)
-
+        val notification = Notification(
+                title = title,
+                message = message,
+                photoUrl = photo,
+                createdAt = timeProvider.now().millis,
+                read = false
+        )
         val createdNotification = notification.copy(id = notificationDAO.insert(notification))
         sendNotification(createdNotification)
-        ShortcutBadger.applyCount(this, 1) //TODO move to a ShortcutBadgerManager
+        updateNotificationBudget.execute()
     }
 
     private fun sendNotification(notification: Notification) {
@@ -50,12 +58,11 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-
         val appName = getString(R.string.app_name)
         val notificationBuilder = NotificationCompat.Builder(this,
                 (this.application as HaveANiceDayApplication).channelId())
                 .setSmallIcon(R.mipmap.ic_notify)
-                .setBadgeIconType(R.mipmap.ic_launcher) //your app icon
+                .setBadgeIconType(R.mipmap.ic_launcher)
                 .setChannelId(appName)
                 .setContentTitle(notification.title)
                 .setContentText(notification.message)
@@ -76,8 +83,8 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
         }
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(Random().nextInt(), notificationBuilder.build())
+        val notificationId = notification.id?.toInt() ?: Random().nextInt()
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
 }
-

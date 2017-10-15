@@ -13,4 +13,7 @@ interface NotificationDAO {
 
     @Insert
     fun insert(notification: Notification): Long
+
+    @Query("SELECT count(*) FROM notification where read=0 order by id desc")
+    fun countUnread(): Int
 }

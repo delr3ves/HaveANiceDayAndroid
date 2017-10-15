@@ -11,20 +11,18 @@ data class Notification(
         var id: Long? = null,
         val title: String?,
         val message: String?,
-        val photoUrl: String?): Parcelable {
+        val photoUrl: String?,
+        val createdAt: Long,
+        val read: Boolean = false
+        ): Parcelable {
 
     constructor(parcel: Parcel) : this(
+            parcel.readValue(Long::class.java.classLoader) as? Long,
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
             parcel.readLong(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id!!)
-        parcel.writeString(title)
-        parcel.writeString(message)
-        parcel.writeString(photoUrl)
-    }
+            parcel.readByte() != 0.toByte())
 
     override fun describeContents(): Int {
         return 0
@@ -38,6 +36,15 @@ data class Notification(
         override fun newArray(size: Int): Array<Notification?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(id)
+        parcel.writeString(title)
+        parcel.writeString(message)
+        parcel.writeString(photoUrl)
+        parcel.writeLong(createdAt)
+        parcel.writeByte(if (read) 1 else 0)
     }
 
 }

@@ -60,7 +60,7 @@ or
 
 ``./gradlew crashlyticsUploadDistributionPreRelease`` for PRE
 
-It will generate an automatic notification to every user in `${ENV}_distribution_emails.txt
+It will generate an automatic notificationDAO to every user in `${ENV}_distribution_emails.txt
  
 
 # Contributing

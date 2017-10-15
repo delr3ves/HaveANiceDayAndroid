@@ -12,10 +12,17 @@ import butterknife.OnClick
 import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessaging
 import com.emaginalabs.haveaniceday.core.model.Notification
-import me.leolin.shortcutbadger.ShortcutBadger
+import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.LazyKodeinAware
+import com.github.salomonbrys.kodein.android.appKodein
+import com.github.salomonbrys.kodein.instance
+import org.jetbrains.anko.doAsync
 
 
-class MessageDetailActivity : AppCompatActivity() {
+class MessageDetailActivity : AppCompatActivity(), LazyKodeinAware {
+
+    override val kodein = LazyKodein(appKodein)
 
     @BindView(R.id.received_message)
     lateinit var textContainer: TextView
@@ -24,6 +31,7 @@ class MessageDetailActivity : AppCompatActivity() {
     @BindView(R.id.received_image)
     lateinit var imageContainer: ImageView
 
+    private val updateNotificationBudget: UpdateNotificationBudget by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +47,9 @@ class MessageDetailActivity : AppCompatActivity() {
                 .load(happyNotification?.photoUrl)
                 .placeholder(R.mipmap.happy_loader)
                 .into(imageContainer)
-
-        ShortcutBadger.applyCount(this, 0) //TODO move to a ShortcutBadgerManager
+        doAsync {
+            updateNotificationBudget.execute()
+        }
     }
 
     @OnClick(R.id.share_message)
