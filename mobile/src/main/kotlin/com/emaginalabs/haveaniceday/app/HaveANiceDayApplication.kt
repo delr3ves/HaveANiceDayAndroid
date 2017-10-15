@@ -16,8 +16,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 
-
-
 class HaveANiceDayApplication : Application(), KodeinAware {
 
     val app = this
