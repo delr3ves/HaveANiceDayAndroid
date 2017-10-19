@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             val view: View?
             val vh: ListRowHolder
             if (convertView == null) {
-                view = this.inflator.inflate(R.layout.notification_row, parent, false)
+                view = this.inflator.inflate(R.layout.notification_row_big, parent, false)
                 vh = ListRowHolder(view)
                 view.tag = vh
             } else {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             GlideApp.with(context)
                     .load(notification.photoUrl)
                     .placeholder(R.mipmap.ic_launcher)
-                    .apply(RequestOptions.circleCropTransform())
+//                    .apply(RequestOptions.circleCropTransform())
                     .into(vh.image)
 
             view?.setOnClickListener { clickedView ->
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         val message: TextView?
         val title: TextView?
         val image: ImageView?
-        val container: LinearLayout?
+        val container: RelativeLayout?
 
         init {
             this.message = row?.findViewById(R.id.notifciation_row_message)

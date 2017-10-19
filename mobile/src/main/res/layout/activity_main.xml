@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent"
-            android:paddingTop="5dp"
+            android:paddingTop="0dp"
             android:dividerHeight="4dip"
             />
     </android.support.v4.widget.SwipeRefreshLayout>

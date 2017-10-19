@@ -4,9 +4,16 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.support.v4.app.NotificationCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.BaseTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.emabinalabs.haveaniceday.R
+import com.emaginalabs.haveaniceday.app.GlideApp
 import com.emaginalabs.haveaniceday.app.HaveANiceDayApplication
 import com.emaginalabs.haveaniceday.app.MessageDetailActivity
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
@@ -20,6 +27,7 @@ import com.github.salomonbrys.kodein.instance
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import me.leolin.shortcutbadger.ShortcutBadger
+import org.jetbrains.anko.runOnUiThread
 import java.net.URL
 import java.util.*
 
@@ -73,13 +81,20 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
                 .setWhen(System.currentTimeMillis())
 
         notification.photoUrl?.let {
-            val imageUri = URL(notification.photoUrl)
-            val bitmap = BitmapFactory.decodeStream(imageUri.openConnection().getInputStream());
+            runOnUiThread {
+                Glide.with(applicationContext)
+                        .asBitmap()
+                        .load(notification.photoUrl)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
+                                val bigPictureStyle = NotificationCompat.BigPictureStyle()
+                                        .bigPicture(resource)
+                                        .setSummaryText(notification.message)
+                                notificationBuilder.setStyle(bigPictureStyle)
+                            }
 
-            val bigPictureStyle = NotificationCompat.BigPictureStyle()
-                    .bigPicture(bitmap)
-                    .setSummaryText(notification.message)
-            notificationBuilder.setStyle(bigPictureStyle)
+                        })
+            }
         }
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

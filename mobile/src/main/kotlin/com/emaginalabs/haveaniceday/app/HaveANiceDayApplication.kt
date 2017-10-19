@@ -19,10 +19,14 @@ import android.os.Build
 import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
 import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
 import com.emaginalabs.haveaniceday.core.utils.TimeProvider
+import android.graphics.Typeface
+
+
 
 class HaveANiceDayApplication : Application(), KodeinAware {
 
     val app = this
+    lateinit var shadowsFont: Typeface
     override val kodein by Kodein.lazy {
         bind<HaveANiceDayDatabase>() with singleton {
             Room.databaseBuilder(app, HaveANiceDayDatabase::class.java, "haveANiceDay")
