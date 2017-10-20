@@ -34,7 +34,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments = ["room.schemaLocation": "$projectDir/assets/schemas".toString()]
             }
         }
     }
@@ -102,7 +102,7 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
-        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        androidTest.assets.srcDirs += files("$projectDir/assets".toString())
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

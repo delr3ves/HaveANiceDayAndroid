@@ -3,6 +3,7 @@ package com.emaginalabs.haveaniceday.app
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
@@ -17,6 +18,8 @@ import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.app.notification.HappyNotificationMessaging
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
 import com.emaginalabs.haveaniceday.core.model.Notification
+import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
+import com.emaginalabs.haveaniceday.core.usecase.ShareNotification
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.LazyKodeinAware
 import com.github.salomonbrys.kodein.android.appKodein
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
     override val kodein = LazyKodein(appKodein)
 
     val notificationDAO: NotificationDAO by instance()
+    val shareNotification: ShareNotification by instance()
+    val markAsRead: MarkNotificationAsRead by instance()
 
     @BindView(R.id.notification_list)
     lateinit var notificationList: ListView
@@ -51,13 +56,15 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             val notifications = notificationDAO.findAll()
             uiThread {
                 notificationList.adapter =
-                        NotificationListAdapter(it, notifications)
+                        NotificationListAdapter(it, shareNotification, markAsRead, notifications)
                 notificationRefresh.isRefreshing = false
             }
         }
     }
 
     private class NotificationListAdapter(val context: Context,
+                                          val shareNotification: ShareNotification,
+                                          val markAsRead: MarkNotificationAsRead,
                                           val notifications: List<Notification>) : BaseAdapter() {
 
         private val inflator: LayoutInflater
@@ -82,19 +89,17 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
             vh.message?.text = notification.message
             if (!notification.read) {
                 vh.container?.background = ContextCompat.getDrawable(context, R.drawable.unread_message_row_box)
+                doAsync {
+                    markAsRead.execute(notification)
+                }
             }
             GlideApp.with(context)
                     .load(notification.photoUrl)
-                    .placeholder(R.mipmap.ic_launcher)
-//                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.image_placeholder)
                     .into(vh.image)
 
-            view?.setOnClickListener { clickedView ->
-                val context = clickedView.context
-                val intent = Intent(context, MessageDetailActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.putExtra(HappyNotificationMessaging.RECEIVED_NOTIFICATION, notification)
-                ContextCompat.startActivity(context, intent, null)
+            vh.shareButton?.setOnClickListener { clickedButton ->
+                shareNotification.execute(notification)
             }
             return view
         }
@@ -119,12 +124,14 @@ class MainActivity : AppCompatActivity(), LazyKodeinAware {
         val title: TextView?
         val image: ImageView?
         val container: RelativeLayout?
+        val shareButton: FloatingActionButton?
 
         init {
             this.message = row?.findViewById(R.id.notifciation_row_message)
             this.title = row?.findViewById(R.id.notifciation_row_title)
             this.image = row?.findViewById(R.id.notifciation_row_photo)
             this.container = row?.findViewById(R.id.received_message_item_container)
+            this.shareButton = row?.findViewById(R.id.share_message)
         }
     }
 }

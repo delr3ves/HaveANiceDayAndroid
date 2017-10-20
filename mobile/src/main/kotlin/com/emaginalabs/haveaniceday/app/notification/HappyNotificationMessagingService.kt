@@ -5,17 +5,13 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.support.v4.app.NotificationCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.BaseTarget
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.emabinalabs.haveaniceday.R
-import com.emaginalabs.haveaniceday.app.GlideApp
 import com.emaginalabs.haveaniceday.app.HaveANiceDayApplication
-import com.emaginalabs.haveaniceday.app.MessageDetailActivity
+import com.emaginalabs.haveaniceday.app.MainActivity
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
 import com.emaginalabs.haveaniceday.core.model.Notification
 import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
@@ -26,9 +22,7 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import me.leolin.shortcutbadger.ShortcutBadger
 import org.jetbrains.anko.runOnUiThread
-import java.net.URL
 import java.util.*
 
 object HappyNotificationMessaging {
@@ -60,7 +54,7 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
     }
 
     private fun sendNotification(notification: Notification) {
-        val intent = Intent(this, MessageDetailActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.putExtra(HappyNotificationMessaging.RECEIVED_NOTIFICATION, notification)
 

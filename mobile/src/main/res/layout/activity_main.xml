@@ -4,17 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/backgrounColor">
 
-    <ImageView
-        android:orientation="vertical"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:gravity="bottom"
-        android:background="@mipmap/notification_background"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:alpha=".55"
-        android:id="@+id/message_list_background"></ImageView>
-
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/refresh_notification_list"
@@ -25,7 +14,6 @@
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent"
             android:paddingTop="0dp"
-            android:dividerHeight="4dip"
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 

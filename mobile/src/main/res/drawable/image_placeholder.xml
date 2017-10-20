@@ -9,7 +9,7 @@
         android:bottom="0dp">
         <shape
             android:shape="rectangle">
-            <solid android:color="@android:color/darker_gray" />
+            <solid android:color="@color/colorPrimaryDark" />
             <corners android:radius="5dp"/>
         </shape>
     </item>
@@ -18,11 +18,13 @@
     <item
         android:left="0dp"
         android:right="2dp"
+        android:height="200dp"
+        android:width="200dp"
         android:top="0dp"
         android:bottom="2dp">
         <shape
             android:shape="rectangle">
-            <solid android:color="@color/backgrounNotificationListItemColor"/>
+            <solid android:color="@color/colorPrimary"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>

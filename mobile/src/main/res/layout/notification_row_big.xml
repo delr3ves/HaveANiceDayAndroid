@@ -11,7 +11,7 @@
         android:id="@+id/received_message_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/backgrounNotificationListItemColor"
         android:elevation="2dp"
         android:orientation="vertical">
@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/notificationTitleBackground"
+            android:textColor="@color/notificationTittleColor"
             android:elevation="2dp"
             android:translationZ="1dp"
             android:gravity="center"
@@ -38,7 +39,7 @@
             android:layout_below="@+id/notifciation_row_title"
             android:adjustViewBounds="true"
             android:orientation="vertical"
-            android:elevation="2dp"
+            android:elevation="6dp"
             android:padding="0dp"
             android:scaleType="fitCenter" />
 

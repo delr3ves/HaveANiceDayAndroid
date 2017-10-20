@@ -1,32 +1,31 @@
 package com.emaginalabs.haveaniceday.app
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.arch.persistence.room.Room
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import com.crashlytics.android.Crashlytics
 import com.emabinalabs.haveaniceday.BuildConfig
 import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
-import com.emaginalabs.haveaniceday.core.dao.database.HaveANiceDayDatabase
 import com.emaginalabs.haveaniceday.core.dao.database.DBMigrations
+import com.emaginalabs.haveaniceday.core.dao.database.HaveANiceDayDatabase
+import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
+import com.emaginalabs.haveaniceday.core.usecase.ShareNotification
+import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
+import com.emaginalabs.haveaniceday.core.utils.TimeProvider
 import com.github.salomonbrys.kodein.*
 import com.google.firebase.messaging.FirebaseMessaging
 import io.fabric.sdk.android.Fabric
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.graphics.Color
-import android.os.Build
-import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
-import com.emaginalabs.haveaniceday.core.usecase.UpdateNotificationBudget
-import com.emaginalabs.haveaniceday.core.utils.TimeProvider
-import android.graphics.Typeface
-
 
 
 class HaveANiceDayApplication : Application(), KodeinAware {
 
     val app = this
-    lateinit var shadowsFont: Typeface
+
     override val kodein by Kodein.lazy {
         bind<HaveANiceDayDatabase>() with singleton {
             Room.databaseBuilder(app, HaveANiceDayDatabase::class.java, "haveANiceDay")
@@ -46,7 +45,11 @@ class HaveANiceDayApplication : Application(), KodeinAware {
         }
 
         bind<MarkNotificationAsRead>() with singleton {
-            MarkNotificationAsRead(instance<NotificationDAO>())
+            MarkNotificationAsRead(instance(), instance())
+        }
+
+        bind<ShareNotification>() with singleton {
+            ShareNotification(app)
         }
     }
 
