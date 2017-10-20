@@ -73,8 +73,10 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
                 .setNumber(1)
                 .setColor(255)
                 .setWhen(System.currentTimeMillis())
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationId = notification.id?.toInt() ?: Random().nextInt()
 
-        notification.photoUrl?.let {
+        if (notification.photoUrl != null) {
             runOnUiThread {
                 Glide.with(applicationContext)
                         .asBitmap()
@@ -85,15 +87,14 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
                                         .bigPicture(resource)
                                         .setSummaryText(notification.message)
                                 notificationBuilder.setStyle(bigPictureStyle)
+                                notificationManager.notify(notificationId, notificationBuilder.build())
                             }
-
                         })
             }
+        } else {
+            notificationManager.notify(notificationId, notificationBuilder.build())
         }
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notificationId = notification.id?.toInt() ?: Random().nextInt()
-        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
 }
