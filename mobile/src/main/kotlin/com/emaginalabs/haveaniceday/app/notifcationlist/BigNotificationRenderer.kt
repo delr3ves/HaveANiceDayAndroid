@@ -76,7 +76,7 @@ class BigNotificationRenderer(val markNotificationAsRead: MarkNotificationAsRead
         date.text = timeAgo
     }
 
-    @OnClick(R.id.notifciation_row_photo)
+    @OnClick(R.id.share_message)
     fun configureShareButton() {
         shareNotification.execute(content)
     }
