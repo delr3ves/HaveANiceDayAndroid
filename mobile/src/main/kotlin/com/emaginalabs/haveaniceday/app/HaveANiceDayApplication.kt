@@ -10,6 +10,7 @@ import android.os.Build
 import com.crashlytics.android.Crashlytics
 import com.emabinalabs.haveaniceday.BuildConfig
 import com.emabinalabs.haveaniceday.R
+import com.emaginalabs.haveaniceday.app.notifcationlist.BigNotificationRenderer
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
 import com.emaginalabs.haveaniceday.core.dao.database.DBMigrations
 import com.emaginalabs.haveaniceday.core.dao.database.HaveANiceDayDatabase
@@ -50,6 +51,10 @@ class HaveANiceDayApplication : Application(), KodeinAware {
 
         bind<ShareNotification>() with singleton {
             ShareNotification(app)
+        }
+
+        bind<BigNotificationRenderer>() with singleton {
+            BigNotificationRenderer(instance(), instance())
         }
     }
 
