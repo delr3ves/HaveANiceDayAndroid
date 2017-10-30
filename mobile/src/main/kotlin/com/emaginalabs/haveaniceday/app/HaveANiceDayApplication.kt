@@ -53,7 +53,7 @@ class HaveANiceDayApplication : Application(), KodeinAware {
             ShareNotification(app)
         }
 
-        bind<BigNotificationRenderer>() with singleton {
+        bind<BigNotificationRenderer>() with provider {
             BigNotificationRenderer(instance(), instance())
         }
     }
