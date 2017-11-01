@@ -5,6 +5,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.support.v4.app.NotificationCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -83,11 +85,12 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
                         .load(notification.photoUrl)
                         .into(object : SimpleTarget<Bitmap>() {
                             override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
-                                val bigPictureStyle = NotificationCompat.BigPictureStyle()
-                                        .bigPicture(resource)
-                                        .setSummaryText(notification.message)
-                                notificationBuilder.setStyle(bigPictureStyle)
-                                notificationManager.notify(notificationId, notificationBuilder.build())
+                                notifyWithImage(resource, notification, notificationBuilder, notificationManager, notificationId)
+                            }
+
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                val picture = BitmapFactory.decodeResource(resources, R.mipmap.happy_loader)
+                                notifyWithImage(picture, notification, notificationBuilder, notificationManager, notificationId)
                             }
                         })
             }
@@ -95,6 +98,19 @@ class HappyNotificationMessagingService : FirebaseMessagingService(), LazyKodein
             notificationManager.notify(notificationId, notificationBuilder.build())
         }
 
+    }
+
+    private fun notifyWithImage(
+            picture: Bitmap?,
+            notification: Notification,
+            notificationBuilder: NotificationCompat.Builder,
+            notificationManager: NotificationManager,
+            notificationId: Int) {
+        val bigPictureStyle = NotificationCompat.BigPictureStyle()
+                .bigPicture(picture)
+                .setSummaryText(notification.message)
+        notificationBuilder.setStyle(bigPictureStyle)
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
 }
