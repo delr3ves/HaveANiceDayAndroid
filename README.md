@@ -1,4 +1,4 @@
-# HaveANiceDayAndroid ![Build Status](https://www.bitrise.io/app/b10220c409c51793.svg?token=Klq9TcBlbOQqX1i2MIquMQ)
+# HaveANiceDayAndroid ![Build Status](https://travis-ci.org/delr3ves/HaveANiceDayAndroid.svg?branch=master)
 Android app to generate smiles thanks to https://github.com/pedrovgs/HaveANiceDay
 I knnow, it's not the prettiest APP you'll see, but we're working on it :(
 
