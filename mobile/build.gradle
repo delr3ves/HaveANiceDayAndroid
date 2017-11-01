@@ -150,6 +150,7 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-common:0.10.1'
 
     implementation 'net.danlew:android.joda:2.9.9'
+    implementation 'com.github.pedrovgs:renderers:3.3.3'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
