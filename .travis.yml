@@ -30,3 +30,7 @@ before_script:
 
 script:
   - ./gradlew checkstyle build connectedCheck
+
+after_success:
+  - if [ $TRAVIS_BRANCH == "develop" ]; then ./gradlew crashlyticsUploadDistributionPreRelease; fi
+  - if [ $TRAVIS_BRANCH == "master" ]; then ./gradlew crashlyticsUploadDistributionBetaRelease; fi
