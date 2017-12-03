@@ -12,7 +12,6 @@ import com.emabinalabs.haveaniceday.BuildConfig
 import com.emabinalabs.haveaniceday.R
 import com.emaginalabs.haveaniceday.app.notifcationlist.BigNotificationRenderer
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
-import com.emaginalabs.haveaniceday.core.dao.database.DBMigrations
 import com.emaginalabs.haveaniceday.core.dao.database.HaveANiceDayDatabase
 import com.emaginalabs.haveaniceday.core.usecase.MarkNotificationAsRead
 import com.emaginalabs.haveaniceday.core.usecase.ShareNotification
@@ -30,7 +29,7 @@ class HaveANiceDayApplication : Application(), KodeinAware {
     override val kodein by Kodein.lazy {
         bind<HaveANiceDayDatabase>() with singleton {
             Room.databaseBuilder(app, HaveANiceDayDatabase::class.java, "haveANiceDay")
-                    .addMigrations(DBMigrations.MIGRATION_1_2)
+                    .addMigrations(*HaveANiceDayDatabase.Migrations.ALL_MIGRATIONS)
                     .build()
         }
         bind<NotificationDAO>() with singleton {

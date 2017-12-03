@@ -25,13 +25,13 @@ class ShareNotification(private val context: Context) {
                     .into(object : SimpleTarget<Bitmap>() {
                         override fun onResourceReady(image: Bitmap?, transition: Transition<in Bitmap>?) {
                             val sharingIntent = Intent(Intent.ACTION_SEND)
-                            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, notification?.title)
-                            val message = "${context.getString(R.string.app_name)} ;) - ${notification?.message}"
+                            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, notification.title)
+                            val message = "${context.getString(R.string.app_name)} ;) - ${notification.message}"
                             sharingIntent.putExtra(Intent.EXTRA_TEXT, message)
                             if (image != null) {
                                 val file = File(getExternalFilesDir(DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png")
                                 val out = FileOutputStream(file)
-                                image?.compress(Bitmap.CompressFormat.PNG, 90, out)
+                                image.compress(Bitmap.CompressFormat.PNG, 90, out)
                                 out.close()
                                 sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
                                 sharingIntent.type = "image/png"

@@ -10,7 +10,7 @@ import com.emaginalabs.haveaniceday.core.model.Notification
 @Dao
 interface NotificationDAO {
 
-    @Query("SELECT * FROM notification order by id desc")
+    @Query("SELECT * FROM notification WHERE status = 'VISIBLE' order by id desc")
     fun findAll(): List<Notification>
 
     @Insert

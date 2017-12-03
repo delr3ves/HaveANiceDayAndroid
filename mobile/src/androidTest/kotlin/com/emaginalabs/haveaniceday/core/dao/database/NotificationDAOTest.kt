@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.emaginalabs.haveaniceday.core.dao.NotificationDAO
 import com.emaginalabs.haveaniceday.core.model.Notification
+import com.emaginalabs.haveaniceday.core.model.Notification.Companion.Status.*
 import org.hamcrest.Matchers.*
 import org.junit.After
 import org.junit.Assert.assertThat
@@ -45,6 +46,15 @@ class NotificationDAOTest {
     }
 
     @Test
+    fun deletedNotificationShouldBeInFindAllList() {
+        val visibleNotification = givenAnStoredNotification()
+        val deletedNotification = givenADeletedNotification()
+
+        assertThat(notificationDAO.findAll(), contains(visibleNotification))
+        assertThat(notificationDAO.findAll(), not(contains(deletedNotification)))
+    }
+
+    @Test
     fun nonStoredNotificationShouldNotBeInNotificationList() {
         val inMemmoryNotification = givenAnInMemoryNotification()
 
@@ -63,6 +73,15 @@ class NotificationDAOTest {
         givenAnStoredNotification(isRead = false)
 
         assertThat(notificationDAO.countUnread(), equalTo(1))
+    }
+
+    private fun givenADeletedNotification(): Notification {
+        val deletedNotification = givenAnInMemoryNotification(true)
+                .copy(status = DELETED)
+        val storedNotification = deletedNotification
+                .copy(id = notificationDAO.insert(deletedNotification))
+        return storedNotification
+
     }
 
     private fun givenAnStoredNotification(isRead: Boolean = true): Notification {

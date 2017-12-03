@@ -4,7 +4,6 @@ import android.arch.persistence.db.framework.FrameworkSQLiteOpenHelperFactory
 import android.arch.persistence.room.testing.MigrationTestHelper
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.emaginalabs.haveaniceday.core.dao.database.DBMigrations
 import com.emaginalabs.haveaniceday.core.dao.database.HaveANiceDayDatabase
 import org.junit.Before
 import org.junit.Rule
@@ -12,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class Version1To2MigrationTest {
+class DBMigrationsTest {
 
     val TEST_DB = "migration-test"
 
@@ -34,6 +33,16 @@ class Version1To2MigrationTest {
                 TEST_DB,
                 2,
                 true,
-                DBMigrations.MIGRATION_1_2)
+                HaveANiceDayDatabase.Migrations.MIGRATION_1_2)
+    }
+
+    @Test
+    fun testMigrationV2ToV3() {
+        helper.createDatabase(TEST_DB, 2).close()
+        helper.runMigrationsAndValidate(
+                TEST_DB,
+                3,
+                true,
+                HaveANiceDayDatabase.Migrations.MIGRATION_2_3)
     }
 }

@@ -2,6 +2,8 @@ package com.emaginalabs.haveaniceday.core.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.TypeConverter
+import android.arch.persistence.room.TypeConverters
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -13,7 +15,8 @@ data class Notification(
         val message: String?,
         val photoUrl: String?,
         val createdAt: Long,
-        val read: Boolean = false
+        val read: Boolean = false,
+        val status: Status = Status.VISIBLE
         ): Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -22,20 +25,30 @@ data class Notification(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
-            parcel.readByte() != 0.toByte())
+            parcel.readByte() != 0.toByte(),
+            Status.valueOf(parcel.readString()))
 
     override fun describeContents(): Int {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Notification> {
-        override fun createFromParcel(parcel: Parcel): Notification {
-            return Notification(parcel)
+    companion object {
+        @JvmField val CREATOR = object : Parcelable.Creator<Notification> {
+            override fun createFromParcel(parcel: Parcel): Notification {
+                return Notification(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Notification?> {
+                return arrayOfNulls(size)
+            }
         }
 
-        override fun newArray(size: Int): Array<Notification?> {
-            return arrayOfNulls(size)
+        enum class Status {
+            VISIBLE, DELETED
         }
+
+        val allVisibleStatuses = listOf(Status.VISIBLE)
+
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -45,6 +58,7 @@ data class Notification(
         parcel.writeString(photoUrl)
         parcel.writeLong(createdAt)
         parcel.writeByte(if (read) 1 else 0)
+        parcel.writeString(status.toString())
     }
 
 }
