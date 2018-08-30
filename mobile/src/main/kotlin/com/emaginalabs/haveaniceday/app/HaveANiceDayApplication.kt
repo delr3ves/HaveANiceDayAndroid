@@ -20,6 +20,9 @@ import com.emaginalabs.haveaniceday.core.utils.TimeProvider
 import com.github.salomonbrys.kodein.*
 import com.google.firebase.messaging.FirebaseMessaging
 import io.fabric.sdk.android.Fabric
+import android.os.StrictMode
+
+
 
 
 class HaveANiceDayApplication : Application(), KodeinAware {
@@ -75,6 +78,9 @@ class HaveANiceDayApplication : Application(), KodeinAware {
             channel.lightColor = Color.YELLOW
             notificationManager.createNotificationChannel(channel)
         }
+
+        val builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
     }
 
     fun channelId() = getString(R.string.app_name)
